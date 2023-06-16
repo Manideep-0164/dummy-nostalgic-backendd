@@ -56,6 +56,19 @@ creatorRouter.get("/getcourse/:id", async (req, res) => {
     }
 });
 
+creatorRouter.get("/getcourses", async (req, res) => {
+    try {
+        const courseExists = await CourseModel.find();
+        if (!courseExists[0]) return res.status(404).json({ message: "Courses not found" });
+
+        res.status(200).json(courseExists)
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ "error": "Something went wrong" });
+    }
+});
+
 creatorRouter.post('/upload', upload.fields([{ name: 'image' }, { name: 'video' }]), async function (req, res, next) {
 
     const { title, description, language, course, creatorId, creatorName } = req.body
