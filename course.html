@@ -285,10 +285,11 @@
     console.log(video.files[0].type)
 
     if (video.files[0].type !== "video/mp4") return alert("Please provide video at video sections")
-    if (thumbnail.files[0].type !== "image/jpeg") return alert("Thumbnail must be an Image")
+    if (!imagesTypes.includes(thumbnail.files[0].type)) return alert("Thumbnail must be an Image")
 
 
     // console.log(formData, form.elements['video'].files[0], form.elements['image'].files[0])
+    console.log("Fetching started");
 
     fetch('htt://localhost:3000/api/upload', {
       method: 'POST',
@@ -302,7 +303,10 @@
       })
       .catch(function (error) {
         console.log('Error', error);
-      });
+      })
+      .finally(()=>{
+        console.log("fetching Completed")
+      })
   });
 </script>
 
