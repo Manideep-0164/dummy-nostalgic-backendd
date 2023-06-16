@@ -18,6 +18,9 @@ const region = process.env.region
 const bucket = process.env.bucket
 const expiry = process.env.URLexpiry
 
+creatorRouter.use(express.json({ limit: "50mb" }));
+creatorRouter.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 const s3 = new S3Client({          // Setting the credential of aws
     region: region,
     credentials: {
