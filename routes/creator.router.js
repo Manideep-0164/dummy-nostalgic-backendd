@@ -26,9 +26,9 @@ const s3 = new S3Client({          // Setting the credential of aws
     }
 })
 
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage })
-const upload = multer();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage })
+// const upload = multer();
 
 creatorRouter.get("/creator", (req, res) => {
     res.sendFile(path.join(__dirname, "./../course.html"))  // Sending the course form
