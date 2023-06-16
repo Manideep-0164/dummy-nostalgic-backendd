@@ -30,7 +30,12 @@ const s3 = new S3Client({          // Setting the credential of aws
 })
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage })
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 50 * 1024 * 1024, // Set the maximum file size to 50MB
+    },
+})
 // const upload = multer();
 
 creatorRouter.get("/creator", (req, res) => {
@@ -56,7 +61,7 @@ creatorRouter.post('/upload', upload.fields([{ name: 'image' }, { name: 'video' 
     const { title, description, language, course, creatorId, creatorName } = req.body
 
     try {
-        
+
         const videoFile = req.files['video'][0];                    // Extract the uploaded video file from the request through frontend
         const videoName = 'videos/' + videoFile.originalname        // storing original file name
         const videoUrl = await handleAwsStore(videoFile, videoName) // storing file and generating the url with expirable lifetime
