@@ -4,7 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const { connection } = require("./configs/db");
 const {creatorRouter} = require("./routes/creator.router")
-const PORT = process.env.port;
+const PORT = process.env.PORT;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -27,5 +27,5 @@ app.listen(PORT, async () => {
     } catch (error) {
         console.log("Something went wrong\n", error);
     }
-    console.log(`Server is running at port: ${PORT}`)
+    console.log(`Server is running at PORT: ${PORT}`)
 })

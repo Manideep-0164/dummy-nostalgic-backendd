@@ -12,11 +12,11 @@ const {
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner"); //Package for getting the url of files from s3 bucket
 const { CourseModel } = require("./../models/course.model");
 
-const accessKeyId = process.env.accessKeyId
-const secretAccessKey = process.env.secretAccessKey
-const region = process.env.region
-const bucket = process.env.bucket
-const expiry = process.env.URLexpiry
+const accessKeyId = process.env.ACCESS_KEY_ID
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+const region = process.env.REGION
+const bucket = process.env.BUCKET
+const expiry = process.env.URL_EXPIRY
 
 creatorRouter.use(express.json({ limit: "50mb" }));
 creatorRouter.use(express.urlencoded({ limit: "50mb", extended: true }));
