@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Studio</title>
+  <!-- <link rel="stylesheet" href="./course.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: hsl(252, 75%, 60%);
+      --font-size: 16px;
+    }
+
+    .upload-form {
+      /* width: 58%; */
+      width: 700px;
+      border: 1px solid;
+      margin: auto;
+      margin: 30px auto;
+      background: var(--primary-color);
+      color: hsl(193.82deg 88.73% 21.41%);
+    }
+
+    #form-upload-form {
+      /* display: flex; */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80%;
+      margin: auto;
+      padding: 30px;
+      border-radius: 7px;
+      background: white;
+      margin-bottom: 40px;
+    }
+
+    .form-item {
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      margin: 10px 0px;
+    }
+
+    .input-ele {
+      /* padding: 10px 0px; */
+      outline: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      /* border: none; */
+      border-width: 1px;
+      border-style: solid;
+      height: 2.5rem;
+      margin-top: 4px;
+      padding: 0px 10px;
+    }
+
+    .input-ele.active {
+      border-color: red;
+    }
+
+    #description {
+      max-width: 100%;
+      min-width: 100%;
+      max-height: 100px;
+      min-height: 45px;
+      outline: none;
+      border-radius: 5px;
+      margin-top: 5px;
+      padding: 10px;
+    }
+
+    #submit {
+      margin: auto;
+      display: flex;
+      padding: 8px 22px;
+      border-radius: 5px;
+      outline: none;
+      font-size: 1rem;
+      overflow: hidden;
+      margin-top: 16px;
+      font-weight: 600;
+      background: none;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    #submit:hover {
+      color: white;
+      border: 2px solid var(--primary-color);
+      background: var(--primary-color);
+    }
+
+    #form-header {
+      text-align: center;
+      margin: 20px auto 0px;
+      padding: 20px;
+      background: var(--primary-color);
+      margin: auto;
+      color: white;
+    }
+
+    .drag-area {
+      border: 2px dashed var(--primary-color);
+      height: 200px;
+      width: 80%;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary-color);
+      flex-direction: column;
+      margin: auto;
+    }
+
+    .drag-area .icon {
+      font-size: 72px;
+      color: var(--primary-color);
+    }
+
+    .drag-area header {
+      /* font-size: 21px;
+      font-weight: 500; */
+      /* color: white; */
+      font-size: 21px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .drag-area span {
+      font-size: 15px;
+      font-weight: 500;
+      /* color: white; */
+      margin: 7px 0 10px 0;
+    }
+
+    .drag-area button {
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 2px solid var(--primary-color);
+      outline: none;
+      background: var(--primary-color);
+      border-radius: 5px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .drag-area label {
+      padding: 7px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 2px solid var(--primary-color);
+      outline: none;
+      background: var(--primary-color);
+      border-radius: 5px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .drag-area label:hover {
+      background: none;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="upload-form">
+    <h2 id="form-header">Create Course</h2>
+    <form action="http://localhost:1000/api/upload" method="POST" id="form-upload-form" enctype="multipart/form-data">
+
+      <div class="form-item">
+        <label for="title">Title:</label>
+        <input type="text" class="input-ele" name="title" id="title" required>
+      </div>
+
+      <div class="form-item">
+        <label for="course">Course:</label>
+        <select name="course" class="input-ele" id="course" required>
+          <option value="">Course</option>
+          <option value="Data Analyst">Data Analyst</option>
+          <option value="Full Stock Web-Development">Full Stock Web-Development</option>
+          <option value="Networking">Networking</option>
+          <option value="Database Engineering">Database Engineering</option>
+          <option value="Frontend Frameworks">Frontend Frameworks</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required></textarea>
+      </div>
+
+      <div class="form-item">
+        <label for="language">Language:</label>
+        <input type="text" class="input-ele" name="language" id="language" required>
+      </div>
+
+      <div class="form-item">
+        Video:
+        <input hidden type="file" class="input-ele" name="video" id="video" required>
+      </div>
+
+      <div class="drag-area">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <header>Browse File to Upload</header> <!--  Drag & drop to upload File -->
+        <!-- <span>OR</span> -->
+        <label for="video">Browse File</label>
+      </div>
+
+      <!-- <div class="form-item">
+        <label for="thumbnail">Thumbnail:</label>
+        <input type="file" class="input-ele" name="image" id="thumbnail" required>
+      </div> -->
+
+      <div class="form-item">
+        Thumbnail:
+        <input type="file" class="input-ele" name="image" id="thumbnail" required hidden>
+      </div>
+
+      <div class="drag-area">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <header>Browse File to Upload</header> <!--  Drag & drop to upload File -->
+        <!-- <span>OR</span> -->
+        <label for="thumbnail">Browse File</label>
+      </div>
+
+      <div class="">
+        <button type="submit" id="submit">submit</button>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+<script>
+  let creatorId = "1" // Replace it with the data of local storage
+  let creatorName = "dummy" // Replace it with the data of local storage
+  let form = document.getElementById('form-upload-form')
+  let title = document.getElementById("title")
+  let description = document.getElementById("description")
+  let video = document.getElementById("video")
+  let thumbnail = document.getElementById("thumbnail")
+  let course = document.getElementById("course")
+  let language = document.getElementById("language"),
+  imagesTypes = ["image/jpeg", "image/png", "image/jpg"]
+
+
+  video.addEventListener("change", () => {
+    if (video.files[0].type !== "video/mp4") return alert("Please provide only Video")
+    alert("Uploaded")
+  })
+
+  thumbnail.addEventListener("change", () => {
+    if (!imagesTypes.includes(thumbnail.files[0].type)) return alert("Thumbnail must be an Image")
+    alert("Uploaded")
+  })
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+
+    const formData = new FormData()
+    formData.append("title", title.value)
+    formData.append("description", description.value)
+    formData.append("video", form.elements['video'].files[0])
+    formData.append("image", form.elements['image'].files[0])
+    formData.append("language", language.value)
+    formData.append("course", course.value)
+    formData.append("creatorId", creatorId)
+    formData.append("creatorName", creatorName)
+
+    console.log(video.files[0].type)
+
+    if (video.files[0].type !== "video/mp4") return alert("Please provide video at video sections")
+    if (thumbnail.files[0].type !== "image/jpeg") return alert("Thumbnail must be an Image")
+
+
+    // console.log(formData, form.elements['video'].files[0], form.elements['image'].files[0])
+
+    fetch('htt://localhost:1000/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      })
+      .catch(function (error) {
+        console.log('Error', error);
+      });
+  });
+</script>
+
+</html>
