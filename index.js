@@ -6,7 +6,8 @@ const { connection } = require("./configs/db");
 const {creatorRouter} = require("./routes/creator.router")
 const PORT = process.env.port;
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 
 
