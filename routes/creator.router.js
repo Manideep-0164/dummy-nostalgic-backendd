@@ -156,6 +156,53 @@ async function deleteFromAws(name) {
     await s3.send(deleteCommand);           // sending the delete request to s3
 }
 
+creatorRouter.patch("/update/like/:creatorId", async (req, res) => {
+    const { creatorId } = req.params
+    const { userid } = req.body;
+    try {
+        const courseExists = await CourseModel.findOne({ creatorId: creatorId });
+        if (!courseExists) return res.status(404).json({ message: "Course not found" });
+
+
+        const isAlreadyLiked = courseExists.content[0].likedBy.some(like => like.id === userid);  // returns true or false based on the condition
+
+        if(isAlreadyLiked) return res.json({ message: "already liked!" });
+
+        await CourseModel.findOneAndUpdate(
+            { creatorId: creatorId },
+            { $push: { 'content.0.likedBy': { id: userid } } }
+        )
+        res.status(200).json({
+            message: "Liked"
+        })
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ "error": "Something went wrong" });
+    }
+});
+
+creatorRouter.patch("/update/comment/:creatorId", async (req, res) => {
+    const { creatorId } = req.params
+    const { commentBy, commentContent } = req.body;
+    try {
+        const courseExists = await CourseModel.findOne({ creatorId: creatorId });
+        if (!courseExists) return res.status(404).json({ message: "Course not found" });
+
+        await CourseModel.findOneAndUpdate(
+            { creatorId: creatorId },
+            { $push: { 'content.0.comments': { commentBy: commentBy, commentContent:commentContent } } }
+        )
+        res.status(200).json({
+            message: "commented"
+        })
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ "error": "Something went wrong" });
+    }
+});
+
 module.exports = {
     creatorRouter
 }
