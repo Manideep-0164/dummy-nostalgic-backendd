@@ -42,10 +42,10 @@ creatorRouter.get("/creator", (req, res) => {
     res.sendFile(path.join(__dirname, "./../course.html"))  // Sending the course form
 });
 
-creatorRouter.get("/getcourse/:id", async (req, res) => {
-    const { id } = req.params
+creatorRouter.get("/getcourse/:creatorid", async (req, res) => {
+    const { creatorid } = req.params
     try {
-        const courseExists = await CourseModel.findOne({ creatorId: id });
+        const courseExists = await CourseModel.findOne({ creatorId: creatorid });
         if (!courseExists) return res.status(404).json({ message: "Course not found" });
 
         res.status(200).json(courseExists)
@@ -60,6 +60,20 @@ creatorRouter.get("/getcourses", async (req, res) => {
     try {
         const courseExists = await CourseModel.find();
         if (!courseExists[0]) return res.status(404).json({ message: "Courses not found" });
+
+        res.status(200).json(courseExists)
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ "error": "Something went wrong" });
+    }
+});
+
+creatorRouter.get("/singlecourse/:id", async (req, res) => {
+    const {id} = req.params;
+    try {
+        const courseExists = await CourseModel.findOne({ _id: id })
+        if (!courseExists) return res.status(404).json({ message: "Course not found" });
 
         res.status(200).json(courseExists)
     }
